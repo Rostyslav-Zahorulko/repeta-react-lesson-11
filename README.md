@@ -1,1 +1,1 @@
-React application template
+Вебiнар № 11

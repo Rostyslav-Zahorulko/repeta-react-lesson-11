@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "text": "Поспать",
+      "completed": true,
+      "id": 1
+    },
+    {
+      "text": "Поесть",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "text": "Поиграть",
+      "completed": false,
+      "id": 3
+    }
+  ]
+}
