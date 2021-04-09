@@ -1,25 +1,30 @@
-// Вебинар № 9
-// https://youtu.be/5G-dG__cS0o?t=5065 - Переписывание коллекции заметок на Redux
+// Вебинар № 11 - Асинхронный Redux
 
-// Вебинар № 10
-// https://youtu.be/DPk3jLTrPV8?t=192  - Переписывание коллекции заметок на Redux Toolkit
-// https://youtu.be/DPk3jLTrPV8?t=165  - configureStore()
-// https://youtu.be/DPk3jLTrPV8?t=880  - createAction()
-// https://youtu.be/DPk3jLTrPV8?t=1356 - createReducer()
-// https://youtu.be/DPk3jLTrPV8?t=2061 - Дофиксивание колекции заметок
-// https://youtu.be/DPk3jLTrPV8?t=2305 - Важно!!!
-// https://youtu.be/DPk3jLTrPV8?t=2775 - Redux-persist
+// https://youtu.be/4V0mgp6r2ps?t=314  - Прослойка (middleware), стек прослоек
+// https://youtu.be/4V0mgp6r2ps?t=1070 - Сохранение заметок в db.json
+// https://youtu.be/4V0mgp6r2ps?t=3693 - errorReducer
+// https://youtu.be/4V0mgp6r2ps?t=3741 - Переписывание операции fetchTodos() на async/await
+// https://youtu.be/4V0mgp6r2ps?t=3852 - Резюме
+
+// Вебинар № 12 - Селекторы и библиотека Reselect
+
+// https://youtu.be/IR5C1CwF8ZI?t=10   - Что такое селекторы
+// https://youtu.be/IR5C1CwF8ZI?t=480  - Рефакторинг коллекции заметок
+// https://youtu.be/IR5C1CwF8ZI?t=2080 - Библиотека Reselect
+// https://youtu.be/IR5C1CwF8ZI?t=2638 - Фабрики селекторов
+// https://youtu.be/IR5C1CwF8ZI?t=2762 - Рефакторинг путей
 
 import { Component } from 'react';
+import { connect } from 'react-redux';
+import Container from '../components/Container';
 import TodoList from '../components/TodoList';
 import TodoEditor from '../components/TodoEditor';
-import { connect } from 'react-redux';
 import TodoFilter from '../components/TodoFilter';
 import Stats from '../components/Stats';
 import Modal from '../components/Modal';
 import IconButton from '../components/IconButton';
 import { ReactComponent as AddIcon } from '../icons/add.svg';
-import { fetchTodos } from '../redux/todos/todos-operations';
+import { todosOperations, todosSelectors } from '../redux/todos';
 
 const barStyles = {
   display: 'flex',
@@ -45,7 +50,7 @@ class TodosPage extends Component {
     const { isLoadingTodos } = this.props;
 
     return (
-      <>
+      <Container>
         <div style={barStyles}>
           <TodoFilter />
           <Stats />
@@ -62,17 +67,17 @@ class TodosPage extends Component {
             <TodoEditor onSave={this.toggleModal} />
           </Modal>
         )}
-      </>
+      </Container>
     );
   }
 }
 
-const mapStateToProps = ({ todos }) => ({
-  isLoadingTodos: todos.loading,
+const mapStateToProps = state => ({
+  isLoadingTodos: todosSelectors.getIsLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchTodos: () => dispatch(fetchTodos()),
+  fetchTodos: () => dispatch(todosOperations.fetchTodos()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodosPage);

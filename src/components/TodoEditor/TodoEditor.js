@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import * as todosOperations from '../../redux/todos/todos-operations';
 import './TodoEditor.scss';
+import { todosOperations } from '../../redux/todos/';
 
 class TodoEditor extends Component {
   state = {

@@ -16,7 +16,7 @@ import {
 
 axios.defaults.baseURL = 'http://localhost:3001';
 
-// export const fetchTodos = () => async dispatch => {
+// const fetchTodos = () => async dispatch => {
 //   dispatch(fetchTodosRequest());
 
 //   try {
@@ -28,7 +28,7 @@ axios.defaults.baseURL = 'http://localhost:3001';
 //   }
 // };
 
-export const fetchTodos = () => dispatch => {
+const fetchTodos = () => dispatch => {
   dispatch(fetchTodosRequest());
 
   axios
@@ -37,7 +37,7 @@ export const fetchTodos = () => dispatch => {
     .catch(error => dispatch(fetchTodosError(error)));
 };
 
-export const addTodo = text => dispatch => {
+const addTodo = text => dispatch => {
   const todo = {
     text,
     completed: false,
@@ -51,7 +51,7 @@ export const addTodo = text => dispatch => {
     .catch(error => dispatch(addTodoError(error)));
 };
 
-export const deleteTodo = id => dispatch => {
+const deleteTodo = id => dispatch => {
   dispatch(deleteTodoRequest());
 
   axios
@@ -60,7 +60,7 @@ export const deleteTodo = id => dispatch => {
     .catch(error => dispatch(deleteTodoError(error)));
 };
 
-export const updateTodo = ({ id, completed }) => dispatch => {
+const updateTodo = ({ id, completed }) => dispatch => {
   const update = { completed };
 
   dispatch(updateTodoRequest());
@@ -70,3 +70,12 @@ export const updateTodo = ({ id, completed }) => dispatch => {
     .then(({ data }) => dispatch(updateTodoSuccess(data)))
     .catch(error => dispatch(updateTodoError(error)));
 };
+
+const todosOperations = {
+  fetchTodos,
+  addTodo,
+  deleteTodo,
+  updateTodo,
+};
+
+export default todosOperations;

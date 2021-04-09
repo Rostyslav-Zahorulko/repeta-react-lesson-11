@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import * as todosOperations from '../../redux/todos/todos-operations';
 import classNames from 'classnames';
 import Todo from '../Todo';
 import './TodoList.scss';
+import { todosSelectors, todosOperations } from '../../redux/todos';
 
 const TodoList = ({ todos, onDeleteTodo, onUpdateTodo }) => (
   <ul className="TodoList">
@@ -24,16 +24,8 @@ const TodoList = ({ todos, onDeleteTodo, onUpdateTodo }) => (
   </ul>
 );
 
-const getFilteredTodos = (filter, allTodos) => {
-  const lowercasedFilter = filter.toLowerCase();
-
-  return allTodos.filter(({ text }) =>
-    text.toLowerCase().includes(lowercasedFilter),
-  );
-};
-
-const mapStateToProps = ({ todos: { filter, items } }) => ({
-  todos: getFilteredTodos(filter, items),
+const mapStateToProps = state => ({
+  todos: todosSelectors.getFilteredTodos(state),
 });
 
 const mapDispatchToProps = dispatch => ({
