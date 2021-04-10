@@ -73,7 +73,7 @@ class TodosPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoadingTodos: todosSelectors.getIsLoading(state),
+  isLoadingTodos: todosSelectors.getLoading(state),
 });
 
 const mapDispatchToProps = dispatch => ({
